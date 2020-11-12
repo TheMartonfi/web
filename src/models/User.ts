@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { Eventing } from "./Eventing";
 
 interface UserProps {
 	id?: number;
@@ -7,6 +8,8 @@ interface UserProps {
 }
 
 export class User {
+	public events: Eventing = new Eventing();
+
 	constructor(private data: UserProps) {}
 
 	get(propName: string): string | number {
@@ -34,4 +37,20 @@ export class User {
 			axios.post("http://localhost:3000/users", this.data);
 		}
 	}
+}
+
+export function adjacentElementsProduct(arr: number[]) {
+	let maxProduct;
+
+	arr.forEach((number: number, index: number) => {
+		const product = number * arr[index + 1];
+
+		if (!maxProduct) {
+			maxProduct: number = product;
+		} else {
+			if (product > maxProduct) maxProduct = product;
+		}
+	});
+
+	return maxProduct;
 }
